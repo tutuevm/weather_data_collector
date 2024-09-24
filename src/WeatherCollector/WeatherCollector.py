@@ -1,10 +1,13 @@
-import asyncio
+import logging
 
 import aiohttp
 from sqlalchemy import insert
 
 from src.WeatherCollector.models import WeatherData
 from src.database import get_async_session
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 class WeatherCollector:
@@ -15,7 +18,6 @@ class WeatherCollector:
             async with session.get(url) as response:
                 data = await response.json()
                 weather = data["current_weather"]
-                print(weather)
         return weather
 
     async def _write_data_to_db(self, weather_data: WeatherData):
@@ -25,13 +27,12 @@ class WeatherCollector:
             await session.commit()
 
     async def collect_and_write_data(self):
+        logger.info("starting to receive data")
         client_data = await self._collect_weather_data()
         weather_data = WeatherData(
             temperature=client_data["temperature"],
             wind_direction=client_data["winddirection"],
             wind_speed=client_data["windspeed"],
         )
+        logger.info("writing data to DB")
         await self._write_data_to_db(weather_data=weather_data)
-
-
-asyncio.run(WeatherCollector().collect_and_write_data())
