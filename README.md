@@ -11,7 +11,7 @@
 
 1. **Клонируйте репозиторий:**
     ```bash
-    git clone https://github.com/ваш_пользователь/ваш_репозиторий.git
+    git clone https://github.com/tutuevm/weather_data_collector.git
     cd ваш_репозиторий
     ```
 
