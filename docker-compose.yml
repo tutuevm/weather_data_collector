@@ -1,0 +1,26 @@
+version: '3.8'
+
+
+networks:
+  dev:
+
+services:
+  postgresql:
+    image: postgres:14
+    container_name: weather_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dev
+    env_file:
+      - .env
+
+
+volumes:
+  postgres_data:

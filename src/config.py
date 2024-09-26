@@ -7,6 +7,8 @@ from pydantic_settings import BaseSettings
 
 load_dotenv()
 
+BASE_DIR = Path(__file__).parent.parent
+
 
 class DBSettings(BaseModel):
     DB_USER: str = os.environ.get("DB_USER")
@@ -17,8 +19,8 @@ class DBSettings(BaseModel):
 
 
 class Config(BaseSettings):
-    BASE_DIR: str = Path(__file__).parent
     DB_SETTINGS: DBSettings = DBSettings()
+    WEATHER_REQUEST_DELAY_SEC: int = os.environ.get("WEATHER_REQUEST_DELAY_SEC")
 
 
 config = Config()
