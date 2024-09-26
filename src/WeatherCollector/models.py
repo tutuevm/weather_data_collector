@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID, uuid4
 
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database import Base
@@ -15,5 +15,6 @@ class WeatherData(Base):
         DateTime, nullable=False, default=datetime.now
     )
     temperature: Mapped[float] = mapped_column(nullable=False)
-    wind_direction: Mapped[int] = mapped_column(nullable=False)
+    wind_direction: Mapped[str] = mapped_column(String(2))
     wind_speed: Mapped[float] = mapped_column(nullable=False)
+    weather_condition: Mapped[str] = mapped_column(String(70))

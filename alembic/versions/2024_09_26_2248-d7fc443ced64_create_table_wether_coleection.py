@@ -1,8 +1,8 @@
-"""create wheatr data table
+"""create table wether coleection
 
-Revision ID: 02022f44ba54
+Revision ID: d7fc443ced64
 Revises: 
-Create Date: 2024-09-24 22:45:23.020764
+Create Date: 2024-09-26 22:48:06.880009
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '02022f44ba54'
+revision: str = 'd7fc443ced64'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -24,8 +24,9 @@ def upgrade() -> None:
     sa.Column('id', sa.Uuid(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('temperature', sa.Float(), nullable=False),
-    sa.Column('wind_direction', sa.Integer(), nullable=False),
+    sa.Column('wind_direction', sa.String(length=2), nullable=False),
     sa.Column('wind_speed', sa.Float(), nullable=False),
+    sa.Column('weather_condition', sa.String(length=70), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
